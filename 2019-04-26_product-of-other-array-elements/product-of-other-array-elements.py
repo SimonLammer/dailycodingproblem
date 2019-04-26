@@ -9,6 +9,20 @@ Follow-up: what if you can't use division?
 arr = [1, 2, 3, 4, 5]
 
 def main(arr):
+  res = [1] * len(arr)
+  product = 1
+  for i in range(1, len(arr)):
+    product *= arr[i - 1]
+    res[i] = product
+  product = 1
+  for i in reversed(range(0, len(arr) - 1)):
+    product *= arr[i + 1]
+    res[i] *= product
+  return res
+
+def with_division(arr):
+  # This fails when the array contains 0
+
   product = 1
   for num in arr:
     product *= num
