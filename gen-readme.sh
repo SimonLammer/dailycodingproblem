@@ -16,7 +16,9 @@ for i in $(ls src | sort -nr); do
   printf "]($f) | " >> $file
   if [[ "$f" == *.py ]]; then
     # Python
-    grep '# Asked by ' $f | sed 's!# Asked by !!' | tr -d '\n' >> $file
+    grep '# Difficulty: ' $f | sed 's!# Difficulty: !!' | tr -d '\n' >> $file
+    printf " | " >> $file
+    grep '# Questioner: ' $f | sed 's!# Questioner: !!' | tr -d '\n' >> $file
     printf " | " >> $file
     awk "NR>$(
       grep -n '"""' $f\

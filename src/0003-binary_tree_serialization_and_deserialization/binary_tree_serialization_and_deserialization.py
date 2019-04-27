@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-# Asked by Google
+# Questioner: Google
+# Difficulty: Medium
 """
 Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
 
