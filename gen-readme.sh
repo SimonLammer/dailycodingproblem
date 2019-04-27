@@ -10,10 +10,10 @@ grep -A1 -n '| Number' $file\
   > $tmp
 mv $tmp $file
 for i in $(ls src | sort -nr); do
-  printf "| $(echo $i | cut -d- -f1) | " >> $file
+  printf "| $(echo $i | cut -d- -f1 | sed 's#^0*##') | [" >> $file
   f=$(ls src/$i/$(echo $i | cut -d- -f2).*)
   printf "$f" | sed -e 's!^.*/!! ; s!\..*$!! ; s!_! !g' >> $file
-  printf " | " >> $file
+  printf "]($f) | " >> $file
   if [[ "$f" == *.py ]]; then
     # Python
     grep '# Asked by ' $f | sed 's!# Asked by !!' | tr -d '\n' >> $file
