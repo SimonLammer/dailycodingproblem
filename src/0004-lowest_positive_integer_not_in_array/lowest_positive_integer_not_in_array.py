@@ -8,3 +8,19 @@ For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should g
 
 You can modify the input array in-place.
 """
+
+def main(arr):
+  lowest_missing_int = 1
+  found_new = True
+  while found_new:
+    found_new = False
+    for num in arr:
+      if num == lowest_missing_int:
+        found_new = True
+        lowest_missing_int += 1
+  return lowest_missing_int
+
+
+if __name__ == '__main__':
+  assert main([3, 4, -1, 1]) == 2
+  assert main([1, 2, 0]) == 3
