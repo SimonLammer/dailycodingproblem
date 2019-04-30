@@ -1,5 +1,11 @@
 # [dailycodingproblem.com](https://dailycodingproblem.com/)
 
+## Lessons
+
+1. [How to solve a hard programming interview question](lessons/How_to_solve_hard_programming_interview_questions.md)
+
+## Solutions
+
 | Number | Title | Difficulty | Questioner | Description |
 | ------:|:-----:|:----------:|:----------:|:----------- |
 | 4 | [lowest positive integer not in array](src/0004-lowest_positive_integer_not_in_array/lowest_positive_integer_not_in_array.py) | Hard | Stripe | Given an array of integers, find the first missing positive integer in linear time and constant space. In other words, find the lowest positive integer that does not exist in the array. The array can contain duplicates and negative numbers as well.<br/><br/>For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should give 3.<br/><br/>You can modify the input array in-place.<br/> |
