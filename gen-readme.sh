@@ -30,6 +30,20 @@ for i in $(ls src | sort -nr); do
       | tr -d '\n'\
       >> $file
     echo " |" >> $file
+  elif [[ "$f" == *.cpp ]]; then
+    grep '// Difficulty' $f | sed 's!// Difficulty: !!' | tr -d '\n' >> $file
+    printf " | " >> $file
+    grep '// Questioner' $f | sed 's!// Questioner: !!' | tr -d '\n' >> $file
+    printf " | " >> $file
+    awk "NR>$(
+      grep -n '/\*' $f\
+      | cut -d: -f1)&&NR<$(
+      grep -n '\*/' $f\
+      | cut -d: -f1)" $f\
+    | sed 's#$#<br/>#'\
+    | tr -d '\n'\
+    >> $file
+    echo " |" >> $file
   else
     >&2 echo "File of unknown type: $f"
   fi
