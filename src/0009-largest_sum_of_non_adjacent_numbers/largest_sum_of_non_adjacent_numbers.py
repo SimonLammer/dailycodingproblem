@@ -21,11 +21,11 @@ def simple(arr):
     elif l > 2:
       return max(
         max(0, arr[start]) + simple_(arr, start + 2),
-        max(0, arr[start + 1]) + simple_(arr, start + 3))
+        simple_(arr, start + 1))
     else:
       raise Exception("ERROR")
 
-  return calc(arr, simple_) 
+  return calc(arr, simple_)
 
 def calc(arr, f):
   m = arr[0]
