@@ -1,5 +1,7 @@
 # [dailycodingproblem.com](https://dailycodingproblem.com/)
 
+This repo contains my solutions to the tasks from [dailycodingproblem.com](https://dailycodingproblem.com/).
+
 ## Lessons
 
 1. [How to solve a hard programming interview question](lessons/How_to_solve_hard_programming_interview_questions.md)
