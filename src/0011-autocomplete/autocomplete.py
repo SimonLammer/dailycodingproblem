@@ -60,6 +60,43 @@ def narrow_search(q, arr):
 
 # ------------------------------------------------------------------------------
 
+TERMINATOR = '\0'
+
+def tree_prep(arr):
+  root = dict()
+  for s in arr:
+    node = root
+    for c in s:
+      if not c in node:
+        node[c] = dict()
+      node = node[c]
+    node[TERMINATOR] = True
+  return root
+
+def tree(q, arr, prep=None):
+  if prep == None:
+    prep = tree_prep(arr)
+  node = prep
+  for c in q:
+    if c in node:
+      node = node[c]
+    else:
+      return []
+  res = tree_result(node)
+  return map(lambda s: q + s, res)
+
+def tree_result(node):
+  res = []
+  for c in node:
+    if c == TERMINATOR:
+      res.append("")
+    else:
+      inner_res = tree_result(node[c])
+      res.extend(map(lambda s: c + s, inner_res))
+  return res
+
+# ------------------------------------------------------------------------------
+
 if __name__ == '__main__':
   import random
   random.seed(a="almost random")
@@ -68,9 +105,9 @@ if __name__ == '__main__':
   ]
   def word(max_length = 7): return ''.join(random.choices('abcde', k=random.randint(1, max_length)))
   for i in range(50):
-    arr = []
+    arr = set()
     for j in range(random.randint(10, 250)):
-      arr.append(word())
+      arr.add(word())
     test = dict()
     for j in range(50):
       q = word(4)
@@ -78,8 +115,8 @@ if __name__ == '__main__':
       test[q] = expected
     tests.append((arr, test))
 
-  func = narrow
-  prep_func = narrow_prep
+  func = tree
+  prep_func = tree_prep
 
   for i, test in enumerate(tests):
     arr = test[0]
