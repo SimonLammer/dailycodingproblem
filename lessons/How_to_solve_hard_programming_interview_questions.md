@@ -1,3 +1,5 @@
+# How to solve hard programming interview questions
+
 So let's go over the thought process for solving tricky coding interview questions. I often find it's not enough to just be able to solve the problem; you really need to vocalize your thought process. This shows that you're a strong communicator and that you didn't just get lucky solving this one particular problem.
 
 The question we'll work through is the following: return a new sorted merged list from K sorted lists, each with size N. Before we move on any further, you should take some time to think about the solution!

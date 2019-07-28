@@ -4,7 +4,8 @@ This repo contains my solutions to the tasks from [dailycodingproblem.com](https
 
 ## Lessons
 
-1. [How to solve a hard programming interview question](lessons/How_to_solve_hard_programming_interview_questions.md)
+1. [How to solve a hard programming interview questions](lessons/How_to_solve_hard_programming_interview_questions.md)
+2. [How to formulaically solve tree interview questions](lessons/How_to_formulaically_solve_tree_interview_questions.md)
 
 ## My solutions
 
