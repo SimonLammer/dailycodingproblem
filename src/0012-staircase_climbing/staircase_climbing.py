@@ -109,6 +109,17 @@ def reference_solution(N, steps):
 
 # -----------------------------------------------------------------------------
 
+def reference_solution_v2(N, steps):
+  # This is my revision of the reference solution
+  m = max(steps)
+  cache = [0 for _ in range(m)]
+  cache[0] = 1
+  for i in range(1, N + 1):
+    cache[i % m] = sum(cache[(i - x) % m] for x in steps)
+  return cache[N % m]
+
+# -----------------------------------------------------------------------------
+
 import decimal
 decimal.getcontext().prec = 10
 import timeit
@@ -118,11 +129,12 @@ VALUE_LEN = 6
 
 if __name__ == '__main__':
   functions = (
-    solve_btree,
-    solve_sorteddict,
-    solve_heapq,
+    # solve_btree,
+    # solve_sorteddict,
+    # solve_heapq,
     reference_solution,
-    bruteforce,
+    reference_solution_v2,
+    # bruteforce,
   )
   for steps in (
     STEPS,
@@ -693,4 +705,268 @@ reference_solution 6765 1.4686e+2036 0.18932192799911718
 reference_solution 10946 5.9334e+3294 0.40353796699491795
 reference_solution 17711 1.7427e+5331 0.8957750289991964
 All tests passed
+"""
+"""
+steps=(1, 2)
+function              N  value time [s]
+reference_solution    1      1 1.1640407249979034e-06
+reference_solution_v2    1      1 1.4693005300068763e-06
+reference_solution    2      2 1.7812032100118813e-06
+reference_solution_v2    2      2 2.1113693400184276e-06
+reference_solution    3      3 2.5197383900012938e-06
+reference_solution_v2    3      3 2.702294729970163e-06
+reference_solution    4      5 3.1191860800026915e-06
+reference_solution_v2    4      5 3.516632630016829e-06
+reference_solution    5      8 3.6473761099841795e-06
+reference_solution_v2    5      8 4.115800919971661e-06
+reference_solution    8     34 5.366483280013199e-06
+reference_solution_v2    8     34 5.882400200061966e-06
+reference_solution   13    377 8.352227740033413e-06
+reference_solution_v2   13    377 8.854233900055988e-06
+reference_solution   21  17711 1.2836252450142637e-05
+reference_solution_v2   21  17711 1.4083558250058558e-05
+reference_solution   34 9227465 2.081063620025816e-05
+reference_solution_v2   34 9227465 2.2190135200071383e-05
+reference_solution   55 2.2585e+11 3.3087503600108904e-05
+reference_solution_v2   55 2.2585e+11 3.3655181799986166e-05
+reference_solution   89 2.8801e+18 5.424581400002353e-05
+reference_solution_v2   89 2.8801e+18 5.3674214200145795e-05
+reference_solution  144 8.9892e+29 9.065386659931392e-05
+reference_solution_v2  144 8.9892e+29 9.025805159981246e-05
+reference_solution  233 3.5779e+48 0.00015460369150059706
+reference_solution_v2  233 3.5779e+48 0.00014968427600069845
+reference_solution  377 4.4447e+78 0.00025634649299900047
+reference_solution_v2  377 4.4447e+78 0.0002495026719989255
+reference_solution  610 2.1977e+127 0.0004317418060018099
+reference_solution_v2  610 2.1977e+127 0.0004066337479962385
+reference_solution  987 1.3499e+206 0.0007214290119954967
+reference_solution_v2  987 1.3499e+206 0.0006747472139977617
+reference_solution 1597 4.0998e+333 0.0012142866249996588
+reference_solution_v2 1597 4.0998e+333 0.001156960065000021
+reference_solution 2584 7.6483e+539 0.002059354080010962
+reference_solution_v2 2584 7.6483e+539 0.0019693991699932666
+reference_solution 4181 4.3334e+873 0.00406707380003354
+reference_solution_v2 4181 4.3334e+873 0.003378000519987836
+reference_solution 6765 4.5802e+1413 0.0072559935400204265
+reference_solution_v2 6765 4.5802e+1413 0.005816728040008457
+reference_solution 10946 2.7429e+2287 0.01332816840003943
+reference_solution_v2 10946 2.7429e+2287 0.010707992850075242
+reference_solution 17711 1.7362e+3701 0.02517742489981174
+reference_solution_v2 17711 1.7362e+3701 0.020957393900243915
+reference_solution 28657 6.5813e+5988 0.05076113579998491
+reference_solution_v2 28657 6.5813e+5988 0.038526257400008035
+reference_solution 46368 1.5791e+9690 0.10682526799973857
+reference_solution_v2 46368 1.5791e+9690 0.08165520699985791
+reference_solution 75025 1.4362e+15679 0.2318364959974133
+reference_solution_v2 75025 1.4362e+15679 0.16717680500005372
+reference_solution 121393 3.1341e+25369 0.5684262909999234
+reference_solution_v2 121393 3.1341e+25369 0.3833746140007861
+reference_solution_v2 196418 6.2205e+41048 0.9026099430011527
+steps=(1, 3, 5)
+function              N  value time [s]
+reference_solution    1      1 1.3298893149840297e-06
+reference_solution_v2    1      1 2.152158335011336e-06
+reference_solution    2      1 2.045394189990475e-06
+reference_solution_v2    2      1 2.5786873700053546e-06
+reference_solution    3      2 2.621232710007462e-06
+reference_solution_v2    3      2 3.3637489499960795e-06
+reference_solution    4      3 3.1588279800052986e-06
+reference_solution_v2    4      3 3.944959399996151e-06
+reference_solution    5      5 3.9115469600073995e-06
+reference_solution_v2    5      5 4.69590585998958e-06
+reference_solution    8     19 5.9733384800347265e-06
+reference_solution_v2    8     19 6.856251459976193e-06
+reference_solution   13    182 1.284990240001207e-05
+reference_solution_v2   13    182 1.4092922350027948e-05
+reference_solution   21   6728 1.8077274999996008e-05
+reference_solution_v2   21   6728 2.262434674994438e-05
+reference_solution   34 2371987 3.229783300012059e-05
+reference_solution_v2   34 2371987 3.318650060027721e-05
+reference_solution   55 3.0893e+10 5.0844240400329e-05
+reference_solution_v2   55 3.0893e+10 5.918172979945666e-05
+reference_solution   89 1.4185e+17 7.828599519998534e-05
+reference_solution_v2   89 1.4185e+17 7.940653039986501e-05
+reference_solution  144 8.4831e+27 0.0001309604580001178
+reference_solution_v2  144 8.4831e+27 0.00013574070899994694
+reference_solution  233 2.3294e+45 0.0002267929239969817
+reference_solution_v2  233 2.3294e+45 0.0002182106020009087
+reference_solution  377 3.8253e+73 0.00038552126200011117
+reference_solution_v2  377 3.8253e+73 0.0004488780969986692
+reference_solution  610 1.7250e+119 0.0008166671100043459
+reference_solution_v2  610 1.7250e+119 0.0013471980379981688
+reference_solution  987 1.2774e+193 0.0020398312200086365
+reference_solution_v2  987 1.2774e+193 0.002209788270010904
+reference_solution 1597 4.2654e+312 0.0023142375399766023
+reference_solution_v2 1597 4.2654e+312 0.0033234926400109543
+reference_solution 2584 1.0547e+506 0.006906462719998671
+reference_solution_v2 2584 1.0547e+506 0.0043552305200137195
+reference_solution 4181 8.7087e+818 0.010537543359969277
+reference_solution_v2 4181 8.7087e+818 0.010953777359973174
+reference_solution 6765 1.7781e+1325 0.01711816729985003
+reference_solution_v2 6765 1.7781e+1325 0.012053478049892874
+reference_solution 10946 2.9975e+2144 0.027410371000223678
+reference_solution_v2 10946 2.9975e+2144 0.02384056310002052
+reference_solution 17711 1.0317e+3470 0.05179312160034897
+reference_solution_v2 17711 1.0317e+3470 0.04026437040010933
+reference_solution 28657 5.9867e+5614 0.1218042915006663
+reference_solution_v2 28657 5.9867e+5614 0.1134283775008953
+reference_solution 46368 1.1957e+9085 0.22667272000035155
+reference_solution_v2 46368 1.1957e+9085 0.13444510299996182
+reference_solution 75025 1.3857e+14700 0.5113848260007217
+reference_solution_v2 75025 1.3857e+14700 0.28590645100121037
+reference_solution_v2 121393 3.2072e+23785 0.7289450390017009
+steps=(2, 5, 11, 17, 23, 31, 41, 47, 59, 67, 73, 83, 97)
+function              N  value time [s]
+reference_solution    1      0 2.179498599980434e-06
+reference_solution_v2    1      0 7.157258320003166e-06
+reference_solution    2      1 3.5453457600306136e-06
+reference_solution_v2    2      1 9.14839220000431e-06
+reference_solution    3      0 4.703655320045072e-06
+reference_solution_v2    3      0 1.1174210650096938e-05
+reference_solution    4      1 5.944925739968312e-06
+reference_solution_v2    4      1 1.4528697300011117e-05
+reference_solution    5      1 9.419357240039971e-06
+reference_solution_v2    5      1 1.9672662549965026e-05
+reference_solution    8      1 1.3842063499942015e-05
+reference_solution_v2    8      1 2.873081429970625e-05
+reference_solution   13      7 2.2349341700100922e-05
+reference_solution_v2   13      7 4.319138619976002e-05
+reference_solution   21     41 3.596610000022338e-05
+reference_solution_v2   21     41 6.306832999980542e-05
+reference_solution   34   1017 6.396980360004818e-05
+reference_solution_v2   34   1017 9.941519740023068e-05
+reference_solution   55 168783 0.00010744996399989759
+reference_solution_v2   55 168783 0.0001750158859995281
+reference_solution   89 661008892 0.0001755521349987248
+reference_solution_v2   89 661008892 0.000228079913998954
+reference_solution  144 4.2877e+14 0.00030341090499860004
+reference_solution_v2  144 4.2877e+14 0.00037702182900102343
+reference_solution  233 1.0893e+24 0.0005529075919985189
+reference_solution_v2  233 1.0893e+24 0.0006510320800007321
+reference_solution  377 1.7950e+39 0.0011143312800049898
+reference_solution_v2  377 1.7950e+39 0.001211267755006702
+reference_solution  610 7.5143e+63 0.0020504545100084215
+reference_solution_v2  610 7.5143e+63 0.0022696194099989953
+reference_solution  987 5.1837e+103 0.003463258970004972
+reference_solution_v2  987 5.1837e+103 0.0033957550000195623
+reference_solution 1597 1.4970e+168 0.005858309440009179
+reference_solution_v2 1597 1.4970e+168 0.006054423620007583
+reference_solution 2584 2.9824e+272 0.012137904500013974
+reference_solution_v2 2584 2.9824e+272 0.010920601340039866
+reference_solution 4181 1.7159e+441 0.019849905149931145
+reference_solution_v2 4181 1.7159e+441 0.012661294399913458
+reference_solution 6765 1.9668e+714 0.02373431010018976
+reference_solution_v2 6765 1.9668e+714 0.022278692400141152
+reference_solution 10946 1.2970e+1156 0.04302257279996411
+reference_solution_v2 10946 1.2970e+1156 0.04027310459932778
+reference_solution 17711 9.8039e+1870 0.1009161875997961
+reference_solution_v2 17711 9.8039e+1870 0.07879944919986884
+reference_solution 28657 4.8870e+3027 0.21441170400066767
+reference_solution_v2 28657 4.8870e+3027 0.1733517145003134
+reference_solution 46368 1.8414e+4899 0.4311578439992445
+reference_solution_v2 46368 1.8414e+4899 0.4153648789979343
+reference_solution 75025 3.4584e+7927 0.9204630109998106
+reference_solution_v2 75025 3.4584e+7927 0.7203983190011058
+steps=(11, 31, 59, 83, 109)
+function              N  value time [s]
+reference_solution    1      0 1.672738944998855e-06
+reference_solution_v2    1      0 5.68780390000029e-06
+reference_solution    2      0 2.433885540012852e-06
+reference_solution_v2    2      0 7.0333010600006676e-06
+reference_solution    3      0 3.237150200002361e-06
+reference_solution_v2    3      0 2.3602132799896936e-05
+reference_solution    4      0 6.4290797000285235e-06
+reference_solution_v2    4      0 1.04284232500504e-05
+reference_solution    5      0 5.290162279998185e-06
+reference_solution_v2    5      0 1.0686841850110795e-05
+reference_solution    8      0 1.07050533999427e-05
+reference_solution_v2    8      0 1.4212595349999902e-05
+reference_solution   13      0 1.1517598550017283e-05
+reference_solution_v2   13      0 2.0654445099717123e-05
+reference_solution   21      0 1.82673576500747e-05
+reference_solution_v2   21      0 3.190313070008415e-05
+reference_solution   34      0 4.054689319964382e-05
+reference_solution_v2   34      0 4.976214819980669e-05
+reference_solution   55      1 4.951306279981509e-05
+reference_solution_v2   55      1 6.884946139980457e-05
+reference_solution   89      0 0.00010496154759966884
+reference_solution_v2   89      0 0.00010464881000007154
+reference_solution  144      0 0.00019148011449942714
+reference_solution_v2  144      0 0.00016169761799937987
+reference_solution  233    920 0.0003229132810010924
+reference_solution_v2  233    920 0.00026305105999927035
+reference_solution  377 546903 0.0004284407459999784
+reference_solution_v2  377 546903 0.0004602849279981456
+reference_solution  610 1.1619e+10 0.0007768237199998111
+reference_solution_v2  610 1.1619e+10 0.0007431093600025633
+reference_solution  987 1.3594e+17 0.0018500325999957568
+reference_solution_v2  987 1.3594e+17 0.0014897681950060359
+reference_solution 1597 3.6607e+28 0.002241333650017623
+reference_solution_v2 1597 3.6607e+28 0.0022702105000280428
+reference_solution 2584 1.1411e+47 0.003567582380019303
+reference_solution_v2 2584 1.1411e+47 0.0037926483800038114
+reference_solution 4181 9.5698e+76 0.005870045640040189
+reference_solution_v2 4181 9.5698e+76 0.005662969419936417
+reference_solution 6765 2.5018e+125 0.009949335819983389
+reference_solution_v2 6765 2.5018e+125 0.009440397520011174
+reference_solution 10946 5.4847e+203 0.016560178350118804
+reference_solution_v2 10946 5.4847e+203 0.015001068049969035
+reference_solution 17711 3.1435e+330 0.026890529000229434
+reference_solution_v2 17711 3.1435e+330 0.02763121240022883
+reference_solution 28657 3.9497e+535 0.05393552579989773
+reference_solution_v2 28657 3.9497e+535 0.051449941799364754
+reference_solution 46368 2.8443e+867 0.0895180806001008
+reference_solution_v2 46368 2.8443e+867 0.08426069999986793
+reference_solution 75025 2.5737e+1404 0.21595777800030191
+reference_solution_v2 75025 2.5737e+1404 0.24674207699899853
+reference_solution 121393 1.6770e+2273 0.3798085800008266
+reference_solution_v2 121393 1.6770e+2273 0.28902895499777514
+reference_solution 196418 9.8878e+3678 0.6251874109984783
+reference_solution_v2 196418 9.8878e+3678 0.5640848069997446
+steps=range(1, 100)
+function              N  value time [s]
+reference_solution    1      1 1.0780450240054051e-05
+reference_solution_v2    1      1 2.242353340006957e-05
+reference_solution    2      2 1.8965140050022454e-05
+reference_solution_v2    2      2 4.9053105500206586e-05
+reference_solution    3      4 2.3479570700146724e-05
+reference_solution_v2    3      4 6.623410739994143e-05
+reference_solution    4      8 3.838118780004151e-05
+reference_solution_v2    4      8 8.46500254003331e-05
+reference_solution    5     16 4.222107239984325e-05
+reference_solution_v2    5     16 9.666306559956866e-05
+reference_solution    8    128 4.159060230012983e-05
+reference_solution_v2    8    128 0.00010210274549899623
+reference_solution   13   4096 6.948917920017266e-05
+reference_solution_v2   13   4096 0.00016830394299904584
+reference_solution   21 1048576 0.000147212790499907
+reference_solution_v2   21 1048576 0.000349069612002495
+reference_solution   34 8589934592 0.000246370268996543
+reference_solution_v2   34 8589934592 0.0005662896659996477
+reference_solution   55 1.8014e+16 0.00041012172200134955
+reference_solution_v2   55 1.8014e+16 0.0008958949400039273
+reference_solution   89 3.0949e+26 0.0008562529080008972
+reference_solution_v2   89 3.0949e+26 0.0013828341499902308
+reference_solution  144 1.1150e+43 0.0018151096549991052
+reference_solution_v2  144 1.1150e+43 0.002593285240000114
+reference_solution  233 6.9017e+69 0.0029170941000120367
+reference_solution_v2  233 6.9017e+69 0.006391719399980502
+reference_solution  377 1.5391e+113 0.005225589320034487
+reference_solution_v2  377 1.5391e+113 0.007521705999970436
+reference_solution  610 2.1246e+183 0.016305235199979506
+reference_solution_v2  610 2.1246e+183 0.013951007449941244
+reference_solution  987 6.5400e+296 0.017465659999834314
+reference_solution_v2  987 6.5400e+296 0.025762328199925834
+reference_solution 1597 2.7789e+480 0.030826870600139954
+reference_solution_v2 1597 2.7789e+480 0.03316729409998516
+reference_solution 2584 3.6348e+777 0.08568540060005034
+reference_solution_v2 2584 3.6348e+777 0.07047991399958846
+reference_solution 4181 2.0201e+1258 0.17982280300020648
+reference_solution_v2 4181 2.0201e+1258 0.2522346709993144
+reference_solution 6765 1.4686e+2036 0.37997978899875307
+reference_solution_v2 6765 1.4686e+2036 0.23683290500048315
+reference_solution 10946 5.9334e+3294 0.43845063200205914
+reference_solution_v2 10946 5.9334e+3294 0.4515168709986028
+reference_solution 17711 1.7427e+5331 0.9771481069983565
+reference_solution_v2 17711 1.7427e+5331 1.0250335759992595
 """
